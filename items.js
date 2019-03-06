@@ -1,4 +1,4 @@
-const items = [
+export const items = [
   {
     institution_id: "i-12345678",
     name: "University of Oxford",
@@ -28,8 +28,12 @@ const items = [
       label: "United States"
     },
     score: 30
-  }
+  },
   // undefined
 ];
 
-export default items;
+export const itemsAsObject = {
+  oxford: items[0],
+  cambridge: items[1],
+  california: items[2]
+};

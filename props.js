@@ -1,12 +1,12 @@
 import { omit, path, pick, prop } from "ramda";
-import items from "./items";
+import { items } from "./items";
 
 function props() {
   function native() {
     const ids = items.map(item => item.institution_id);
     console.table(ids);
   }
-  native();
+  // native();
 
   function ramda() {
     const ids = items.map(prop("institution_id"));
@@ -41,7 +41,10 @@ function paths() {
   native();
 
   function ramda() {
-    const countryCodes = items.map(path(["country", "code"]));
+    const countryCodes = items.map(item => ({
+      code: path(["country", "code"], item),
+      name: path(["path"], item)
+    }));
     console.table(countryCodes);
   }
   ramda();

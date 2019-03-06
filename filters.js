@@ -1,8 +1,8 @@
-import items from "./items";
+import {items, itemsAsObject} from "./items";
 import {
   allPass,
   equals,
-  filter,
+  filter, pathEq,
   pathSatisfies,
   prop,
   propEq,
@@ -29,12 +29,6 @@ function filtersWithArrays() {
 }
 
 function filtersWithObjects() {
-  const itemsAsObject = {
-    oxford: items[0],
-    cambridge: items[1],
-    california: items[2]
-  };
-
   function native() {
     const newItemsAsObject = {};
     Object.keys(itemsAsObject).forEach(key => {
@@ -70,7 +64,7 @@ function filterForMultipleConditions() {
     const onlyUkAndArts = items.filter(
       allPass([
         propEq("subject", "Arts"),
-        pathSatisfies(equals("GBR"), ["country", "code"])
+        pathEq(["country", "code"], 'GBR')
       ])
     );
     console.table(onlyUkAndArts);

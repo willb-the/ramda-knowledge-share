@@ -1,5 +1,5 @@
 import { map, pipe, prop, sum } from "ramda";
-import items from "./items";
+import { items } from "./items";
 
 function pipes() {
   function native() {

@@ -1,5 +1,5 @@
 import { groupBy, prop } from "ramda";
-import items from "./items";
+import { items } from "./items";
 
 function groups() {
   function native() {
@@ -11,13 +11,13 @@ function groups() {
       groups[item.subject].push(item);
       return groups;
     }, {});
-    console.table(subjectGroups);
+    console.log(subjectGroups);
   }
   native();
 
   function ramda() {
-    const subjectGroups = groupBy(prop("subject"), items);
-    console.table(subjectGroups);
+    const subjectGroups = groupBy(prop('subject'), items);
+    console.log(subjectGroups);
   }
   ramda();
 }
