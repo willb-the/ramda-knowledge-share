@@ -1,52 +1,71 @@
-import { prop, pick, path } from 'ramda';
-import items from './items';
+import { omit, path, pick, prop } from "ramda";
+import items from "./items";
 
 function props() {
-    function regularJs() {
-        const ids = items.map(item => item.institution_id);
-        console.log(ids);
-    }
-    regularJs();
+  function native() {
+    const ids = items.map(item => item.institution_id);
+    console.table(ids);
+  }
+  native();
 
-    function ramdaJs() {
-        const ids = items.map(prop('institution_id'));
-        console.log(ids);
-    }
-    ramdaJs();
+  function ramda() {
+    const ids = items.map(prop("institution_id"));
+    console.table(ids);
+  }
+  ramda();
 }
 
 function picks() {
-    function regularJs() {
-        const namesAndSubjects = items.map(item => ({
-            name: item.name,
-            subject: item.subject
-        }));
+  function native() {
+    const namesAndSubjects = items.map(item => ({
+      name: item.name,
+      subject: item.subject
+    }));
 
-        console.log(namesAndSubjects);
-    }
-    regularJs();
+    console.table(namesAndSubjects);
+  }
+  native();
 
-    function ramdaJs() {
-        const namesAndSubjects = items.map(pick(['name', 'subject']));
-        console.log(namesAndSubjects);
-    }
-    ramdaJs();
+  function ramda() {
+    const namesAndSubjects = items.map(pick(["name", "subject"]));
+    console.table(namesAndSubjects);
+  }
+  ramda();
 }
 
 function paths() {
-    function regularJs() {
-        const countryCodes = items.map(item => item.country.code);
-        console.log(countryCodes);
-    }
-    regularJs();
+  function native() {
+    const countryCodes = items.map(item => item.country.code);
+    console.table(countryCodes);
+  }
+  native();
 
-    function ramdaJs() {
-        const countryCodes = items.map(path(['country', 'code']));
-        console.log(countryCodes);
-    }
-    ramdaJs();
+  function ramda() {
+    const countryCodes = items.map(path(["country", "code"]));
+    console.table(countryCodes);
+  }
+  ramda();
+}
+
+function deleting() {
+  function native() {
+    const itemsWithoutCountry = items.map(item => {
+      const newItem = JSON.parse(JSON.stringify(item));
+      delete newItem.country;
+      return newItem;
+    });
+    console.table(itemsWithoutCountry);
+  }
+  native();
+
+  function ramda() {
+    const itemsWithoutCountry = items.map(omit(["country"]));
+    console.table(itemsWithoutCountry);
+  }
+  ramda();
 }
 
 props();
 picks();
 paths();
+deleting();
